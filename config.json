@@ -1,5 +1,5 @@
 {
-    "g": 981,
+    "g": 0.0,
     "bounds": {
         "width": 1280,
         "height": 720
@@ -8,5 +8,5 @@
     "density": 1,
     "energy_loss_particles": 1.0,
     "energy_loss_bounds": 1.0,
-    "drag_coefficient": 0.5
+    "drag_coefficient": 0.0
 }
