@@ -1,0 +1,12 @@
+{
+    "g": 981,
+    "bounds": {
+        "width": 1280,
+        "height": 720
+    },
+    "particle_count": 100,
+    "density": 1,
+    "energy_loss_particles": 1.0,
+    "energy_loss_bounds": 1.0,
+    "drag_coefficient": 0.5
+}
