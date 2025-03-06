@@ -29,20 +29,18 @@ class Particle:
             self.velocity.y *= -1 * Settings.ENERGY_LOSS_BOUNDS
 
     def handle_particle_collisions(self, other):
-        dst = other.position - self.position
-        dir = dst.normalize()
-        overlap = self.radius + other.radius - dst.magnitude()
+        dp = other.position - self.position
+        dv = other.velocity - self.velocity
+        dir = dp.normalize()
+        overlap = self.radius + other.radius - dp.magnitude()
         self.position -= dir * overlap / 2
         other.position += dir * overlap / 2
 
-        v1 = -(other.mass * other.velocity.magnitude()**2 / self.mass)**0.5  # Derived from T1 = T2, m1 v1^2 = m2 v2^2
-        v2 = (self.mass * self.velocity.magnitude()**2 / other.mass)**0.5  # Derived from T1 = T2, m1 v1^2 = m2 v2^2
-
-        if dst.magnitude() == 0:
+        if dp.magnitude() == 0:
             dir = Vector2.random_polar()
 
-        self.velocity = dir * v1 * Settings.ENERGY_LOSS_PARTICLES
-        other.velocity = dir * v2 * Settings.ENERGY_LOSS_PARTICLES
+        self.velocity += dp * (2 * other.mass * dv.dot(dp)) / ((self.mass + other.mass) * dp.sqr_magnitude())
+        other.velocity += -dp * (2 * self.mass * (-dv).dot(-dp)) / ((self.mass + other.mass) * dp.sqr_magnitude())
 
     def detect_particle_collisions(self, particles):
         for other in particles:
